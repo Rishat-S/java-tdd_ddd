@@ -10,13 +10,14 @@ public class CreditCalculator {
     public static BigDecimal monthlyPayment(double initialAmount, double rateForAccrualPeriod, int period) {
         BigDecimal interestRate = new BigDecimal(rateForAccrualPeriod)
                 .divide(new BigDecimal(period), SCALE_RATE, RoundingMode.HALF_UP);
-        BigDecimal x5 = interestRate.add(new BigDecimal(1));
-        BigDecimal x4 = x5.pow(period);
-        BigDecimal x3 = x4.subtract(new BigDecimal(1));
-        BigDecimal x2 = interestRate.divide(x3, SCALE_RATE, RoundingMode.HALF_UP);
-        BigDecimal x1 = interestRate.add(x2);
-        BigDecimal monthlyPayment = new BigDecimal(initialAmount).multiply(x1);
-        return monthlyPayment.setScale(SCALE_RATE, RoundingMode.HALF_UP);
+        return new BigDecimal(initialAmount)
+                .multiply(interestRate
+                        .add(interestRate
+                                .divide(interestRate
+                                        .add(new BigDecimal(1))
+                                        .pow(period)
+                                        .subtract(new BigDecimal(1)), SCALE_RATE, RoundingMode.HALF_UP)))
+                .setScale(SCALE_RATE, RoundingMode.HALF_UP);
     }
 
     public static BigDecimal totalAmountPayment(double initialAmount, double rateForAccrualPeriod, int period) {
