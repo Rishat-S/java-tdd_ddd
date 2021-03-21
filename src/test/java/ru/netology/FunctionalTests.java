@@ -23,19 +23,19 @@ public class FunctionalTests {
     public static final int PERIOD = 12;
 
     @Test
-    void monthly_payment_calculation() {
+    void monthlyPaymentCalculation() {
         BigDecimal monthlyPayment = CreditCalculator.monthlyPayment(INITIAL_AMOUNT, RATE_FOR_ACCRUAL_PERIOD, PERIOD);
         assertEquals("92.6345058971000", monthlyPayment.toString());
     }
 
     @Test
-    void calculation_of_the_total_amount_to_be_returned_to_the_bank() {
+    void calculationOfTheTotalAmountToBeReturnedToTheBank() {
         BigDecimal totalAmount = CreditCalculator.totalAmountPayment(INITIAL_AMOUNT, RATE_FOR_ACCRUAL_PERIOD, PERIOD);
         assertEquals("1111.6140707652000", totalAmount.toString());
     }
 
     @Test
-    void calculation_of_overpayment_for_the_whole_period() {
+    void calculationOfOverpaymentForTheWholePeriod() {
         BigDecimal overpayment = CreditCalculator.overpayment(INITIAL_AMOUNT, RATE_FOR_ACCRUAL_PERIOD, PERIOD);
         assertEquals("111.6140707652000", overpayment.toString());
     }
